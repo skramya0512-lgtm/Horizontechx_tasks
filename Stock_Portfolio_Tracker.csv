@@ -1,0 +1,42 @@
+import csv
+stock_prices={ "AAPL": 180,
+    "TSLA": 250,
+    "GOOGL": 140,
+    "MSFT": 420,
+    "AMZN": 190}
+portfolio={}
+total_value=0
+num=int(input("enter the number of items want to include:"))
+for a in range(num):
+    stk_name=input("enter the stock name:").upper()
+    stk_qty=int(input("enter the stock quantity:"))
+    if stk_name in stock_prices:
+        portfolio[stk_name]=stk_qty
+    else:
+        print(stk_name,"does not found in the list.")
+print("STOCK PORTFOLIO TRACKER")
+print("===== ========= =======")
+print("-"*30)
+for stk_name, stk_qty in portfolio.items():
+    value = stock_prices[stk_name] * stk_qty
+    total_value += value
+    print(stk_name,":",stk_qty," SHARES × $",stock_prices[stk_name],"= $",value)
+print("-"*30)
+print("TOTAL INVESTMENT VALUES:",total_value,".\n")
+save=input("enter [yes|no] want to save the file or not:")
+if save=='yes':
+    f=open("STK_PTF_TRK.csv", "a", newline="")
+    data= csv.writer(f)
+    data.writerow(["S.NO","STOCK", "QUANTITY", "PRICE", "E_VALUE"])
+    s_no=0
+    for stk_name, stk_qty in portfolio.items():
+        value = stock_prices[stk_name] * stk_qty
+        s_no+=1
+        data.writerow([s_no,stk_name, stk_qty, stock_prices[stk_name], value])
+    data.writerow(["TOTAL INVESTMENT VALUE:",total_value])
+    print("successfully saved the portfolio tracker in csv file.")
+    f.close()
+else:
+    print("the user doesn't want to save this file in csv mode.")
+    
+
