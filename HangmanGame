@@ -1,0 +1,41 @@
+import random
+#assiging a values in a list
+word=["apple","rocket","bike","chain","monitor"]
+#selecting a random
+words=random.choice(word)
+length=len(words)
+#initailing the game state
+max_incrt=6
+guess_letter=[]
+guess_incrt=0
+display=["_"]*length
+#looping strucutureof the game
+while guess_incrt<max_incrt and ("_") in display:
+    print("word:",' '.join(display))
+    print("guessed letter:",guess_letter)
+    print("incorrect left",max_incrt-guess_incrt)
+    guess=input("enter the letter:").lower()
+    if len(guess)!=1 or not guess.isalpha():
+        print("enter the single letter.")
+        continue
+    if guess in guess_letter:
+        print("you already enter the same letter.")
+        continue
+    guess_letter.append(guess)
+    if guess in words:
+        for i,letter in enumerate(words):
+            if letter==guess:
+                display[i]=guess
+    else:
+        guess_incrt+=1
+        print("wrong guess,you have",max_incrt-guess_incrt,"guesses left.")
+if '_' not in display:
+    print("congratulations,you guess the word:",words)
+else:
+    print("sorry,you ran out of guess,the word was:",words)
+#restart of the gameplay
+ply_agn=input("enter your opinion(yes|no):")
+if ply_agn=='yes':
+    print("the game get restarted.")
+else:
+    print("thank you for playing")
